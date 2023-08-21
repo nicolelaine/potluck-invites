@@ -1,3 +1,7 @@
+const assignButton = document.querySelector(".assign");
+
+const assignedItem = document.querySelector(".assigned-items");
+
 // invite button
 const addGuestButton = document.querySelector(".invite");
 // label for the invite button
@@ -23,6 +27,31 @@ const updateGuestCount = function () {
   }
 };
 
+const assignItems = function () {
+  let potLuckItems = [
+    "potato salad",
+    "hummus",
+    "cookies",
+    "fruit",
+    "pasta sald"
+  ];
+
+  const allGuests = document.querySelectorAll(".guest-list li"); //select individual guest items
+  for (let guest of allGuests) {
+    let randomPotluckIndex = Math.floor(Math.random() * potLuckItems.length);
+    let randomPotluckItem = potLuckItems[randomPotluckIndex];
+    let listItem = document.createElement("li");
+    listItem.innerText = `${guest.innerText} is bringing ${randomPotluckItem}.`;
+    assignedItem.append(listItem);
+    potLuckItems.splice(randomPotluckIndex, 1);
+  }
+};
+
+assignButton.addEventListener("click", function () {
+  assignItems();
+  assignButton.disabled = true;
+});
+
 const guestInputLabel = document.querySelector(".add-guest label");
 // text input box
 const guestInput = document.querySelector(".add-guest input");
@@ -41,3 +70,4 @@ addGuestButton.addEventListener("click", function () {
     updateGuestCount();
   }
 });
+
